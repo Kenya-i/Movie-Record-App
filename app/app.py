@@ -1,14 +1,17 @@
-from flask import Flask
+from flask import Flask, render_template
 from .model.user import User
+from .routing.user import user_bp
 from .model.db.connection import session
 
 app = Flask(__name__)
 
-@app.route("/index")
+app.register_blueprint(user_bp)
+
+@app.route("/")
 def index():
 
-    user = User(name="takashi", email="test@test.com", password="a")
-    session.add(user)
-    session.commit()
+    #user = User(name="kenji", email="test2@test.com", password="a")
+    #session.add(user)
+    #session.commit()
 
-    return f"hello, {user.name}"
+    return render_template("index.html")
