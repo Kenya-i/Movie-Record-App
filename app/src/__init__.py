@@ -2,11 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 from .models import Base
-#from flask_login import LoginManager
+from flask_login import LoginManager
 from flask_migrate import Migrate
 
 db = SQLAlchemy()
-#login_manager = LoginManager()
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
@@ -14,7 +14,7 @@ def create_app():
     app.config["SECRET_KEY"] = os.urandom(24)
     
     #ログインマネージャーの初期化
-    #login_manager.init_app(app)
+    login_manager.init_app(app)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin_user:m0vie_rec0d@db:5432/MOVIE_RECORD_DB"
 

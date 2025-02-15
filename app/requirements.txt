@@ -8,3 +8,8 @@ pipenv
 psycopg2
 psycopg2-binary
 flask-migrate
+Flask-WTF
+email-validator
+flask-bcrypt
+wtforms[email]
+flask-bcrypt

@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-signup_bp = Blueprint("signup", __name__, url_prefix="/signup", template_folder='templates')
+signup_bp = Blueprint("signup", __name__, template_folder='templates')
 
-from .import views
+from .import views, models
