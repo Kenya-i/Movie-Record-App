@@ -7,3 +7,4 @@ gunicorn
 pipenv
 psycopg2
 psycopg2-binary
+flask-migrate
