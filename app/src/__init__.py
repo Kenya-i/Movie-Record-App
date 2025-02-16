@@ -15,6 +15,7 @@ def create_app():
     
     #ログインマネージャーの初期化
     login_manager.init_app(app)
+    login_manager.login_view = "login.login"
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin_user:m0vie_rec0d@db:5432/MOVIE_RECORD_DB"
 
@@ -24,13 +25,17 @@ def create_app():
     
 
 
-    from .user import user_bp
-    from .signup import signup_bp
     from .home import home_bp
+    #from .user import user_bp
+    from .user_account import signup_bp
+    from .user_account import login_bp
+    from .user_account import user_bp
 
     app.register_blueprint(home_bp)
-    app.register_blueprint(user_bp)
+    #app.register_blueprint(user_bp)
     app.register_blueprint(signup_bp)
+    app.register_blueprint(login_bp)
+    app.register_blueprint(user_bp)
 
     with app.app_context():
         db.create_all()

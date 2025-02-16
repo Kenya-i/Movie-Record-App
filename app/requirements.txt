@@ -13,3 +13,5 @@ email-validator
 flask-bcrypt
 wtforms[email]
 flask-bcrypt
+debugpy
+werkzeug

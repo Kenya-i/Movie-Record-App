@@ -6,6 +6,15 @@
 </head>
 <body>
     <a href="{{url_for('signup.signup')}}">サインアップページ</a>
-    <a href="{{url_for('user.user')}}">ユーザーページ</a>成功
+    <a href="{{url_for('login.login')}}">ログインページ</a>成功
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 </body>
 </html>

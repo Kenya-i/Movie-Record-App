@@ -1,9 +1,11 @@
 from app.src import db,login_manager
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from flask_login import UserMixin
-from flask_bcrypt import Bcrypt
+#from flask_bcrypt import Bcrypt
+from sqlalchemy.exc import IntegrityError
+from werkzeug.security import generate_password_hash, check_password_hash
 
-bcrypt = Bcrypt()
+#bcrypt = Bcrypt()
 
 
 @login_manager.user_loader
@@ -31,11 +33,26 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def add_user(cls, username, email, password):
-        hashed_password = bcrypt.generate_password_hash(password)
-        user = cls(username=username, email=email, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        return user
+        try:
+            hashed_password = generate_password_hash(password)
+            user = cls(username=username, email=email, password=hashed_password)
+            db.session.add(user)
+            db.session.commit()
+
+            return user
+        except IntegrityError as sqlalchemy_error:
+            db.session.rollback()
+            user = None
+            return user
+    
+    @classmethod
+    def select_by_emial(cls, email):
+        return cls.query.where(cls.email == email).one_or_none()
+    
+    def check_password(self, password):
+        print(str(self.password))
+        print(password)
+        return check_password_hash(self.password, password)
 
 
 
