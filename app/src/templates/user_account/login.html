@@ -20,7 +20,7 @@
     <form method="POST">
         {{ form.csrf_token }}
 
-        {{ form.email.label }} {{ form.email }}
+        <div>{{ form.email.label }} {{ form.email }}</div>
         {% if form.email.errors %}
             <ul class="erros">
                 {% for error in form.email.errors %}
@@ -29,7 +29,7 @@
             </ul>
         {% endif %}
 
-        {{ form.password.label }} {{ form.password }}
+        <div>{{ form.password.label }} {{ form.password }}</div>
         {% if form.password.errors %}
             <ul class="erros">
                 {% for error in form.password.errors %}
@@ -40,6 +40,5 @@
 
         {{ form.submit }}
     </form>
-    bbbbb
 </body>
 </html>

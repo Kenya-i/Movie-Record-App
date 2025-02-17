@@ -26,15 +26,20 @@ def signup():
 @login_bp.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm(request.form)
-    print(form)
     if request.method == "GET":
         return render_template("user_account/login.html", form=form)
     elif request.method == "POST" and form.validate_on_submit():
         user = User.select_by_emial(form.email.data)
+
+        #print(type(user.password))#user.emailの型
+        #print(user.password)#user.emailの値(ハッシュ化されたデータ)
+
+        #print(type(form.password.data))#form.password.dataの型
+        #print(form.password.data)#form.password.dataの値
+
         if user and user.check_password(form.password.data):
             login_user(user, remember=True, duration=timedelta(seconds=600))
             flash("ログインしました")
-            #return render_template("user_account/user.html")
             return redirect(url_for("user.user"))
         elif user == None:
             flash("ユーザーが存在しません")

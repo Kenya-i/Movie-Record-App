@@ -4,15 +4,25 @@ import os
 from .models import Base
 from flask_login import LoginManager
 from flask_migrate import Migrate
+import tmdbsimple
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+tmdb = tmdbsimple
 
 def create_app():
     app = Flask(__name__)
 
     app.config["SECRET_KEY"] = os.urandom(24)
     
+    tmdb.API_KEY = '47574f56da1ee67ef62869635c0164df'
+
+    search = tmdb.Search()
+    response = search.movie(query='a')
+    print(response)
+    #for s in search.results:
+    #    print(s['title'], s['id'], s['release_date'], s['popularity'])
+
     #ログインマネージャーの初期化
     login_manager.init_app(app)
     login_manager.login_view = "login.login"

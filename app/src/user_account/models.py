@@ -1,26 +1,23 @@
 from app.src import db,login_manager
-from sqlalchemy import Column, Integer, String, Float, DateTime
+#from sqlalchemy import Column, Integer, String, Float, DateTime
+from sqlalchemy.orm import Mapped, mapped_column
 from flask_login import UserMixin
-#from flask_bcrypt import Bcrypt
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
-
-#bcrypt = Bcrypt()
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-    
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     
-    id = Column("id", Integer, primary_key=True, autoincrement=True)
-    username = Column("username", String(255), nullable=False)
-    email = Column("email", String(255), nullable=False, unique=True)
-    age = Column("age", Integer)
-    password = Column("password", String(255), nullable=False)
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True, autoincrement=True)
+    username: Mapped[str] = mapped_column(db.String(255), nullable=False)
+    email: Mapped[str] = mapped_column(db.String(255), nullable=False, unique=True)
+    age: Mapped[int] = mapped_column(db.Integer, nullable=True)
+    password: Mapped[str] = mapped_column(db.String(255), nullable=False)
     #image = Column(LargeBinary)
     #createdAt = Column("createdAt", DateTime)
     #updatedAt = Column("updatedAt", DateTime)
@@ -50,8 +47,6 @@ class User(UserMixin, db.Model):
         return cls.query.where(cls.email == email).one_or_none()
     
     def check_password(self, password):
-        print(str(self.password))
-        print(password)
         return check_password_hash(self.password, password)
 
 

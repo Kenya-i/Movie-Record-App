@@ -7,7 +7,6 @@
 </head>
 <body>
     signupページです
-    hogehoge
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
@@ -20,7 +19,7 @@
 
     <form method="POST">
         {{ form.csrf_token }}
-        {{ form.username.label }} {{ form.username }}
+        <div>{{ form.username.label }} {{ form.username }}</div>
         {% if form.username.errors %}
             <ul class="erros">
                 {% for error in form.username.errors %}
@@ -29,7 +28,7 @@
             </ul>
         {% endif %}
 
-        {{ form.email.label }} {{ form.email }}
+        <div>{{ form.email.label }} {{ form.email }}</div>
         {% if form.email.errors %}
             <ul class="erros">
                 {% for error in form.email.errors %}
@@ -38,7 +37,7 @@
             </ul>
         {% endif %}
 
-        {{ form.password.label }} {{ form.password }}
+        <div>{{ form.password.label }} {{ form.password }}</div>
         {% if form.password.errors %}
             <ul class="erros">
                 {% for error in form.password.errors %}
@@ -47,7 +46,7 @@
             </ul>
         {% endif %}
 
-        {{ form.password_confirm.label }} {{ form.password_confirm }}
+        <div>{{ form.password_confirm.label }} {{ form.password_confirm }}</div>
         {% if form.password_confirm.errors %}
             <ul class="erros">
                 {% for error in form.password_confirm.errors %}
@@ -58,6 +57,5 @@
 
         {{ form.submit }}
     </form>
-    bbbbb
 </body>
 </html>
