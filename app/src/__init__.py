@@ -8,6 +8,8 @@ import tmdbsimple
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+login_manager.login_view = "login.login"
+login_manager.login_message = "ログインしてください"
 tmdb = tmdbsimple
 
 def create_app():
@@ -25,7 +27,7 @@ def create_app():
 
     #ログインマネージャーの初期化
     login_manager.init_app(app)
-    login_manager.login_view = "login.login"
+    
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin_user:m0vie_rec0d@db:5432/MOVIE_RECORD_DB"
 
@@ -36,13 +38,13 @@ def create_app():
 
 
     from .home import home_bp
-    #from .user import user_bp
+    from .movie import movie_bp
     from .user_account import signup_bp
     from .user_account import login_bp
     from .user_account import user_bp
 
     app.register_blueprint(home_bp)
-    #app.register_blueprint(user_bp)
+    app.register_blueprint(movie_bp)
     app.register_blueprint(signup_bp)
     app.register_blueprint(login_bp)
     app.register_blueprint(user_bp)
