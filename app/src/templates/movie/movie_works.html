@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    movie_works
+
+    <div>
+    {% if movie %}
+        <form action="url_for('movie.movie_works', id=movie['id'])" method="POST">
+
+                <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}">
+                {{ movie["id"] }}
+                {{ movie["title"] }}
+                {{ movie["overview"] }}
+                {{ movie["release_date"] }}
+                {{ movie["poster_path"] }}
+            
+            <!-- {{ movie.overview }}
+            {{ movie.release_date }}-->
+             <input type="submit" value="登録する">
+        </form>
+    {% endif %}
+    </div>
+</body>
+</html>

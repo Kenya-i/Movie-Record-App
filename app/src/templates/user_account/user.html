@@ -29,6 +29,9 @@
     </ul>
     {% endif %}
     {% endwith %}
+
+    <a href="{{url_for('record.record')}}">学習記録を見る</a>
+    <a href="{{url_for('search.search')}}">映画を検索する</a>
     
     <div>
         <form action="{{url_for('login.logout') }}" method="POST">
@@ -36,6 +39,6 @@
         </form>
     </div>
     </form>
-    bbbbb
+    
 </body>
 </html>

@@ -31,7 +31,6 @@ def login():
         return render_template("user_account/login.html", form=form)
     elif request.method == "POST" and form.validate_on_submit():
         user = User.select_by_email(form.email.data)
-        print(user.password)
         if user and user.check_password(form.password.data):
             login_user(user, remember=True, duration=timedelta(seconds=600))
             flash("ログインしました")
@@ -42,10 +41,12 @@ def login():
     
     return render_template("user_account/login.html", form=form)
 
+
 @user_bp.route("/user")
 @login_required
 def user():
     return render_template("user_account/user.html")
+
 
 @user_bp.route("/user/edit", methods=["GET", "POST"])
 @login_required
@@ -69,7 +70,6 @@ def user_edit():
     return render_template("user_account/user_edit.html", form=form)
     
 
-
 @user_bp.route("/user/delete", methods=["POST"])
 @login_required
 def user_delete():
@@ -80,6 +80,7 @@ def user_delete():
         logout_user()
         flash("ユーザーを削除しました")
     return redirect(url_for("home.home"))
+
 
 @login_bp.route("/logout", methods=[ "POST"])
 @login_required

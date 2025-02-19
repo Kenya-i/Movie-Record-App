@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    movies
+
+    {% if movies %}
+        {% for movie in movies %}
+            <a href="{{url_for('movie.movie_works', id=movie['id'])}}">
+                <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}">
+                {{ movie["id"] }}
+                {{ movie["title"] }}
+                {{ movie["overview"] }}
+                {{ movie["release_date"] }}
+                {{ movie["poster_path"] }}
+            </a>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
