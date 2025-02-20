@@ -10,18 +10,18 @@
 
     <div>
     {% if movie %}
-        <form action="url_for('movie.movie_works', id=movie['id'])" method="POST">
-
-                <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}">
-                {{ movie["id"] }}
-                {{ movie["title"] }}
-                {{ movie["overview"] }}
-                {{ movie["release_date"] }}
-                {{ movie["poster_path"] }}
-            
-            <!-- {{ movie.overview }}
-            {{ movie.release_date }}-->
-             <input type="submit" value="登録する">
+        {% if movie['poster_path'] %}
+        <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}">
+        {% endif %}
+        
+        <form method="POST">
+            {{ form.csrf_token }}
+            <div>タイトル : {{ movie['title'] }}</div> {{ form.title(value=movie['title']) }}
+            <div>あらすじ : {{ movie['overview'] }}</div> {{ form.overview(value=movie['overview']) }}
+            {{ form.poster_path(value=movie['poster_path']) }}
+            <div>{{ form.comment.label }} {{ form.comment }}</div>
+            <div>{{ form.date.label }} {{ form.date }}</div>
+            {{ form.submit }}
         </form>
     {% endif %}
     </div>

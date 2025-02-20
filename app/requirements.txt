@@ -15,6 +15,5 @@ wtforms[email]
 flask-bcrypt
 debugpy
 werkzeug
-tmdbsimple
-tmdb3
 tmdbapis
+python-dotenv

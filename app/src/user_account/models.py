@@ -23,12 +23,9 @@ class User(UserMixin, db.Model):
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
     age: Mapped[int] = mapped_column(db.Integer, nullable=True)
     image_path: Mapped[str] = mapped_column(db.Text, nullable=True)
-    movies: Mapped[List["Movie"]] = relationship(back_populates="user")
     created_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
     updated_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
-    #image = Column(LargeBinary)
-    #createdAt = Column("createdAt", DateTime)
-    #updatedAt = Column("updatedAt", DateTime)
+    movies: Mapped[List["Movie"]] = relationship(back_populates="user")
 
     def __init__(self, username, email, password):
         self.username = username
@@ -53,6 +50,10 @@ class User(UserMixin, db.Model):
     @classmethod
     def select_by_email(cls, email):
         return cls.query.where(cls.email == email).one_or_none()
+    
+    @classmethod
+    def select_by_id(cls, id):
+        return cls.query.where(cls.id == id).one_or_none()
     
     def check_password(self, password):
         print(self.password)

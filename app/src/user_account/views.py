@@ -75,6 +75,7 @@ def user_edit():
 def user_delete():
     if request.method == "POST":
         user = User.select_by_email(current_user.email)
+        
         db.session.delete(user)
         db.session.commit()
         logout_user()

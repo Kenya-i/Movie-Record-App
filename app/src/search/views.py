@@ -18,33 +18,12 @@ def search():
     if request.method == "GET":
         return render_template("search/search.html", form=form)
     elif request.method == "POST" and form.validate_on_submit():
-        #image = api3.movies_get_images(movie_id=350, language="ja-JP")
-        #print(image)
-        #print(image["posters"])
-
-
-        #response = requests.get("https://image.tmdb.org/t/p/w500/n4nXOWVOn3Y2zYqtsMSQusVVxBt.jpg")
         
-        #print(response.url)
         search_word = urllib.parse.quote(form.title.data)
-        print(search_word)
         responses = api3.search_search_movies(query=search_word,  language="ja-JP", region="JP")
         movies = responses["results"]
         print(responses["results"])
-        info = {}
-        #for movie in movies:
-        #    id = movie["id"]
-        #    title = movie["title"]
-        #    overview = movie["overview"]
-        #    release_date = movie["release_date"]
-        #    image = movie["poster_path"]
-        #    info.update(movie_id=id, title=title, overview=overview, release_date=release_date, image=image)
 
-        #responses = search.movie(query=form.title.data)
-        #responses.page = "2"
-        #print(form.title.data)
-        #responses = searchMovie('クレヨンしんちゃん')
-        #form.title.data = ""
         return render_template("movie/movie.html", form=form, movies=movies) #, result=result 
 
 

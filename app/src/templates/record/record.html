@@ -7,5 +7,18 @@
 </head>
 <body>
     kiroku
+    {% if movies %}
+        {% for movie in movies %}
+            {% if movie.poster_path %}
+                <img src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}">
+            {% endif %}
+            {{ movie.title }}
+            {{ movie.overview }}
+            {{ movie.comment }}
+            {{ movie.date }}
+            {{ movie.movie_id }}
+            {{ movie.user_id }}
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
