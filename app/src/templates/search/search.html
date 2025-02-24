@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    search
+{% from 'bootstrap5/form.html' import render_form %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% extends "base.html" %}
 
-    <form method="POST">
-        {{ form.csrf_token }}
+{% block title %}
+Movie-Record-App_search
+{% endblock %}
 
-        <div>{{ form.title.label }} {{ form.title }}</div>
+{% block content %}
+    {# フラッシュメッセージとエラーメッセージの表示機能 #}
+    {{ render_messages(container=True, dismissible=True, dismiss_animate=True) }}
+    
+    {# 映画検索フォーム #}
+    <div class="container">
+        <div class="m-4">
+            {{ render_form(form) }}
+        </div>
+    </div>
 
-        {{ form.submit }}
-    </form>
-
-
-    {% if form.title.errors %}
-        <ul class="erros">
-            {% for error in form.title.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-</body>
-</html>
+{% endblock %}

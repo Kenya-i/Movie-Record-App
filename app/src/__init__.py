@@ -6,7 +6,9 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 from tmdbapis.api3 import API3
+from flask_bootstrap import Bootstrap5
 #from .config import DevelopmentConfig, TestingConfig, ProductionConfig
+from opensubtitlescom import OpenSubtitles
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -15,11 +17,26 @@ login_manager.login_message = "ログインしてください"
 
 load_dotenv()
 #app.config['API_KEY'] = os.environ.get('API_KEY')
-apikey = '47574f56da1ee67ef62869635c0164df'
+apikey = ''
 api3 = API3(apikey=apikey)
 
+
+#消さない
+#subtitles = OpenSubtitles("Movie-Record-App v1.0.0", " ")
+
+#消さない
+#subtitles.login("", "")
+
+
+
+app = Flask(__name__)
+bootstrap = Bootstrap5(app)
+
+
 def create_app():
-    app = Flask(__name__)
+    
+
+    
 
     app.config["SECRET_KEY"] = os.urandom(24)
 

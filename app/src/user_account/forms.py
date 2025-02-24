@@ -6,7 +6,7 @@ from .models import User
 
 class SignupForm(FlaskForm):
     username = StringField("名前", validators=[DataRequired()])
-    email = StringField("メールアドレス", validators=[DataRequired(), Email("メールアドレスを設定してください")])
+    email = StringField("メールアドレス", validators=[DataRequired(), Email("メールアドレスの形式が正しくありません")])
     password = PasswordField("パスワード", validators=[DataRequired(), EqualTo("password_confirm", message="パスワードが一致しません")])
     password_confirm = PasswordField("パスワード確認", validators=[DataRequired()])
     submit = SubmitField("登録")
@@ -22,7 +22,6 @@ class UserForm(FlaskForm):
     email = StringField("メール", validators=[DataRequired(), Email("メールアドレスの形式が正しくありません")])
     password = PasswordField("パスワード", validators=[DataRequired(), EqualTo("password_confirm", message="パスワードが一致しません")])
     password_confirm = PasswordField("パスワード確認", validators=[DataRequired()])
-    picture_path = FileField("ファイルアップロード")
     submit = SubmitField("更新")
 
 #class ForgotPasswordForm(FlaskForm):

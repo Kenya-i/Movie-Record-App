@@ -24,7 +24,10 @@ def search():
         movies = responses["results"]
         print(responses["results"])
 
-        return render_template("movie/movie.html", form=form, movies=movies) #, result=result 
+        return render_template("movie/movie.html", form=form, movies=movies)
+    
+    flash('エラーが発生しました', 'danger')
+    return render_template("search/search.html", form=form)
 
 
     #elif request.method == "POST" and form.validate_on_submit():

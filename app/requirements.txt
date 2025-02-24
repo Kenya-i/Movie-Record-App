@@ -17,3 +17,6 @@ debugpy
 werkzeug
 tmdbapis
 python-dotenv
+flask-paginate
+bootstrap-flask
+opensubtitlescom

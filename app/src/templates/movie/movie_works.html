@@ -1,29 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    movie_works
+{% from 'bootstrap5/form.html' import render_form %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% extends "base.html" %}
 
-    <div>
-    {% if movie %}
-        {% if movie['poster_path'] %}
-        <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}">
-        {% endif %}
+{% block title %}
+Movie-Record-App_movies
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if movie %}
         
-        <form method="POST">
-            {{ form.csrf_token }}
-            <div>タイトル : {{ movie['title'] }}</div> {{ form.title(value=movie['title']) }}
-            <div>あらすじ : {{ movie['overview'] }}</div> {{ form.overview(value=movie['overview']) }}
-            {{ form.poster_path(value=movie['poster_path']) }}
-            <div>{{ form.comment.label }} {{ form.comment }}</div>
-            <div>{{ form.date.label }} {{ form.date }}</div>
-            {{ form.submit }}
-        </form>
-    {% endif %}
+            {% if movie['poster_path'] %}
+            <div class="m-4">
+                <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}" class="rounded img-thumbnail  mx-auto d-block">
+            </div>
+            {% endif %}
+        
+        
+            <form method="POST">
+                {{ form.csrf_token }}
+                <div class="text-center pb-4">
+                    <p class="fs-4 fw-bold">タイトル</p>
+                    {{ movie['title'] }}
+                </div>
+
+                {#form.titleはhiddenタグ #}
+                {{ form.title(value=movie['title']) }}
+
+                <div  class="text-center pb-4">
+                        <p class="fs-4 fw-bold">作品情報</p>
+                        {{ movie['overview'] }}
+                </div>
+
+                {#form.overviewはhiddenタグ #}
+                {{ form.overview(value=movie['overview']) }}
+
+                {#form.poster_pathはhiddenタグ #}
+                {{ form.poster_path(value=movie['poster_path']) }}
+
+                <div  class="text-center pb-4">
+                    <p class="fs-4 fw-bold">コメント</p>
+                    {{ form.comment }}
+                </div>
+                <div  class="text-center pb-4">
+                    <p class="fs-4 fw-bold">鑑賞日付</p>
+                    {{ form.date }}
+                </div>
+                {{ form.submit }}
+            </form>
+        {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}

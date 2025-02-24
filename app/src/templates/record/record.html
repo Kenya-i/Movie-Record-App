@@ -1,24 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    kiroku
-    {% if movies %}
-        {% for movie in movies %}
-            {% if movie.poster_path %}
-                <img src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}">
-            {% endif %}
-            {{ movie.title }}
-            {{ movie.overview }}
-            {{ movie.comment }}
-            {{ movie.date }}
-            {{ movie.movie_id }}
-            {{ movie.user_id }}
-        {% endfor %}
-    {% endif %}
-</body>
-</html>
+{% from 'bootstrap5/form.html' import render_form %}
+{% from 'bootstrap5/form.html' import render_form_row %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% extends "base.html" %}
+
+{% block title %}
+Movie-Record-App_login
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container text-center">
+        <div class="row justify-content-md-center gap-4">
+        {% if count != 0 %}
+            <p class="fs-2">{{ pagination.info }}</p>
+        {% else %}
+            <p class="m-4 fs-4">視聴した映画はまだありません</p>
+        {% endif %}
+        {{ pagination.links }}
+
+        {% if movies %}
+            {% for movie in movies %}
+                <div class="card col-md-auto" style="width: 18rem;">
+                    {# movie[0]はmovie-number #}
+                    <a href="{{url_for('record.selected_movie', id=movie[0])}}">
+                        {# movie[4]はposter_path #}
+                        <img src="https://image.tmdb.org/t/p/w300{{movie[4]}}" class="card-img-top ounded img-thumbnail  mx-auto d-block">
+                        <div class="card-body">
+                            {# movie[3]はtitle #}
+                            <h5 class="card-title">{{ movie[3] }}</h5>
+                            {# movie[1]は視聴回数 #}
+                            <p class="card-text">視聴回数 : {{ movie[1] }}</p>
+                            {# movie[2]はdate(直近の視聴日) #}
+                            <p class="card-text">直近の視聴日 : {{ movie[2] }}</p>
+                            {# movie[5]はoverview #}
+                            <p class="card-text txt-limit">作品情報 : {{ movie[5] }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {{ pagination.links }}
+        </div>
+    </div>
+{% endblock %}

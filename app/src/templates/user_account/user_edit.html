@@ -1,86 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-</head>
-<body>
-    ユーザー編集画面です
-    <ul>
-        <li>
-            {{ current_user }}
-            {{ current_user.username }}
-            {{ current_user.email }}
-        </li>
-    </ul>
+{% from 'bootstrap5/form.html' import render_form_row %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% extends "base.html" %}
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
+{% block title %}
+Movie-Record-App_user-edit
+{% endblock %}
+
+{% block content %}
+    {# フラッシュメッセージとエラーメッセージの表示機能 #}
+    {% if form.errors %}
+        <div class="container flashed-messages">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {% for error in form.errors.username %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                        {% for error in form.errors.email %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="container flashed-messages">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {% for message in messages %}
+                            <div>{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     {% endwith %}
 
+
+
+    {# ログインフォーム(メールアドレスとパスワード) #}
+    <div class="container">
     <form method="POST">
         {{ form.csrf_token }}
 
-        <div>{{ form.username.label }} {{ form.username(value=current_user.username) }}</div>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3 required">
+                    <label class="form-label" for="username">名前</label>
+                    <input class="form-control" id="username" name="username" required type="text" value={{current_user.username}}>
+            </div>
+        </div>
         
+        <div class="row">
+            <div class="col">
+                <div class="mb-3 required">
+                    <label class="form-label" for="email">メール</label>
+                    <input class="form-control" id="email" name="email" required type="text" value={{current_user.email}}>
+            </div>
+        </div>
 
-        <div>{{ form.email.label }} {{ form.email(value=current_user.email) }}</div>
-        {% if form.email.errors %}
-            <ul class="erros">
-                {% for error in form.email.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <div>{{ form.password.label }} {{ form.password(placeholder='新しいパスワード') }}</div>
-        {% if form.email.errors %}
-            <ul class="erros">
-                {% for error in form.password.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <div>{{ form.password_confirm.label }} {{ form.password_confirm(placeholder='パスワード確認用') }}</div>
-        {% if form.email.errors %}
-            <ul class="erros">
-                {% for error in form.password_confirm.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {{ form.submit }}
+        {{ render_form_row([form.password]) }}
+        {{ render_form_row([form.password_confirm]) }}
+        {{ render_form_row([form.submit], button_style="primary") }}
     </form>
-    {% if form.errors %}
-        <ul class="erros">
-            {% for error in form.errors.username %}
-            <li>{{ error }}</li>
-            {% endfor %}
-            {% for error in form.errors.email %}
-            <li>{{ error }}</li>
-            {% endfor %}
-            {% for error in form.errors.password %}
-            <li>{{ error }}</li>
-            {% endfor %}
-            {% for error in form.errors.password_confirm %}
-            <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    
-    <div>
-        <form action="{{url_for('user.user_delete') }}" method="POST">
-            <input type="submit" value="ユーザーを削除する">
-        </form>
     </div>
-</body>
-</html>
+    
+    <div class="m-4">
+            <form action="{{url_for('user.user_delete') }}" method="POST">
+                <button type="submit" class="btn btn-danger">退会する</button>
+            </form>
+    </div>
+{% endblock %}

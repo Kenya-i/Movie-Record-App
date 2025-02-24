@@ -1,44 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
-</head>
-<body>
-    ユーザー画面です
-    <ul>
-        <li>
-            {{ current_user }}
-            {{ current_user.username }}
-            {{ current_user.email }}
-        </li>
-    </ul>
+{% from 'bootstrap5/form.html' import render_form %}
+{% from 'bootstrap5/form.html' import render_form_row %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% extends "base.html" %}
 
-    <div>
-        <ul>
-            <li><a href="{{url_for('user.user_edit')}}">ユーザー更新</a></li>
-        </ul>
-    </div>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
+{% block title %}
+Movie-Record-App_user
+{% endblock %}
 
-    <a href="{{url_for('record.record')}}">学習記録を見る</a>
-    <a href="{{url_for('search.search')}}">映画を検索する</a>
-    
-    <div>
-        <form action="{{url_for('login.logout') }}" method="POST">
-            <input type="submit" value="ログアウト">
-        </form>
+{% block content %}
+    {# フラッシュメッセージとエラーメッセージの表示機能 #}
+    {{ render_messages(container=True, dismissible=True, dismiss_animate=True) }}
+
+
+    <div class="container">
+        <div class="card m-4">
+            <div class="card-header fs-2">
+            視聴記録
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">映画を通した英語学習でモチベーションを保つ</h5>
+                <p class="card-text">日々の記録をつけて映画による英語学習のモチベーションを保ちましょう。また、つけた記録とは別に洋画の字幕も確認できます。構文を解析して英語力をさらに高めましょう。</p>
+                <a href="{{url_for('record.record')}}" class="btn btn-primary">視聴記録を見る</a>
+            </div>
+        </div>
     </div>
-    </form>
+
+    <div class="container">
+        <div class="card m-4">
+            <div class="card-header fs-2">
+            映画検索
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">視聴した映画を検索してみましょう</h5>
+                <p class="card-text">あなたが見た映画を検索してみましょう。そのまま視聴記録として登録することもできます。</p>
+                <a href="{{url_for('search.search')}}" class="btn btn-primary">映画を検索する</a>
+            </div>
+        </div>
+    </div>
     
-</body>
-</html>
+{% endblock %}
