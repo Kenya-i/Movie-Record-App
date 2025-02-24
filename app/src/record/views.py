@@ -39,7 +39,7 @@ def record():
         #表示する件数を指定
         displayed_movies = movies[start:end]
 
-        return render_template("record/record.html", movies=displayed_movies, pagination=pagination)
+        return render_template("record/record.html", movies=displayed_movies, pagination=pagination, count=len(movies))
     
     return render_template("home/home.html")
 
