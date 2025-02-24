@@ -42,38 +42,34 @@ Movie-Record-App_user-edit
         {% endif %}
     {% endwith %}
 
-
-
     {# ログインフォーム(メールアドレスとパスワード) #}
     <div class="container">
-    <form method="POST">
-        {{ form.csrf_token }}
+        <form method="POST">
+            {{ form.csrf_token }}
 
-        <div class="row">
-            <div class="col">
-                <div class="mb-3 required">
-                    <label class="form-label" for="username">名前</label>
-                    <input class="form-control" id="username" name="username" required type="text" value={{current_user.username}}>
-            </div>
-        </div>
-        
-        <div class="row">
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3 required">
+                        <label class="form-label" for="username">名前</label>
+                        <input class="form-control" id="username" name="username" required type="text" value={{current_user.username}}>
+                     </div>
+                </div>
+            <div class="row">
             <div class="col">
                 <div class="mb-3 required">
                     <label class="form-label" for="email">メール</label>
                     <input class="form-control" id="email" name="email" required type="text" value={{current_user.email}}>
+                </div>
             </div>
-        </div>
-
-        {{ render_form_row([form.password]) }}
-        {{ render_form_row([form.password_confirm]) }}
-        {{ render_form_row([form.submit], button_style="primary") }}
-    </form>
-    </div>
-    
-    <div class="m-4">
+            {{ render_form_row([form.password]) }}
+            {{ render_form_row([form.password_confirm]) }}
+            {{ render_form_row([form.submit], button_style="primary") }}
+        </form>
+        <div class="mt-4 pull-right">
             <form action="{{url_for('user.user_delete') }}" method="POST">
                 <button type="submit" class="btn btn-danger">退会する</button>
             </form>
+        </div>
     </div>
+        
 {% endblock %}

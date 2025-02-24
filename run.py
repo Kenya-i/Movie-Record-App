@@ -1,8 +1,6 @@
-from app.src import create_app
+from app.src import setup
 
-app = create_app()
-
-#from app.app import app
+app = setup()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

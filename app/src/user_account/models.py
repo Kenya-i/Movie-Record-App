@@ -1,13 +1,11 @@
 from app.src import db,login_manager
-from sqlalchemy import Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from flask_login import UserMixin
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 from typing import List
 from uuid import uuid4
-from datetime import datetime, timedelta
-#from app.src.movie.models import Movie
+from datetime import datetime
 
 
 @login_manager.user_loader
@@ -32,11 +30,14 @@ class User(UserMixin, db.Model):
         self.email = email
         self.password = password
 
-
+    #ユーザー追加
     @classmethod
     def add_user(cls, username, email, password):
         try:
+            #引数で渡されたパスワードをハッシュ化
             hashed_password = generate_password_hash(password)
+
+            #Userインスタンス作成&ユーザー追加・コミット
             user = cls(username=username, email=email, password=hashed_password)
             db.session.add(user)
             db.session.commit()
@@ -47,52 +48,15 @@ class User(UserMixin, db.Model):
             user = None
             return user
     
+    #メールアドレスが一致するユーザーを取得
     @classmethod
     def select_by_email(cls, email):
         return cls.query.where(cls.email == email).one_or_none()
     
-    @classmethod
-    def select_by_id(cls, id):
-        return cls.query.where(cls.id == id).one_or_none()
+    #@classmethod
+    #def select_by_id(cls, id):
+    #    return cls.query.where(cls.id == id).one_or_none()
     
+    #DB内のハッシュ化済みパスワードと渡されてきたパスワードを比較
     def check_password(self, password):
-        print(self.password)
-        print(password)
         return check_password_hash(self.password, password)
-
-
-#class PasswordResetToken(db.Model):
-#    __tablename__ = "password_reset_token"
-
-#    id = db.Column(db.Integer, primary_key=True)
-#    token = db.Column(db.String(64), unique=True, index=True, server_default=str(uuid4))
-#    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-#    expire_at = db.Column(db.DateTime, default=datetime.now)
-#    created_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
-#    updated_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
-
-#    def __init__(self, token, user_id, expire_at):
-#        self.token = token
-#        self.user_id = user_id
-#        self.expire_at = expire_at
-
-#    @classmethod
-#    def publish_token(cls, user):
-#        token = str(uuid4())
-
-#        new_token = cls(
-#            token=token,
-#            user_id=user.id,
-#            expire_at=datetime.now + timedelta(days=1)
-#        )
-
-#        db.session.add(new_token)
-#        return token
-
-
-
-
-#@app.before_request
-#def set_login_user_name():
-#    global login_user_name
-#    login_user_name = current_user.username if current_user.is_authenticated else None

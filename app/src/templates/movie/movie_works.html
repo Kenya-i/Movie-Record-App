@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Movie-Record-App_movies
+Movie-Record-App_movie-works
 {% endblock %}
 
 {% block content %}
@@ -46,7 +46,9 @@ Movie-Record-App_movies
                     <p class="fs-4 fw-bold">鑑賞日付</p>
                     {{ form.date }}
                 </div>
-                {{ form.submit }}
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <input type="submit" class="btn btn-outline-primary" value="登録">
+                </div>
             </form>
         {% endif %}
     </div>

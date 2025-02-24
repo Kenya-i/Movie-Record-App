@@ -4,24 +4,10 @@
 {% extends "base.html" %}
 
 {% block title %}
-Movie-Record-App_movies
+Movie-Record-App_movie
 {% endblock %}
 
 {% block content %}
-
-    {# {% if movies %}
-        {% for movie in movies %}
-            <a href="{{url_for('movie.movie_works', id=movie['id'])}}">
-                <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}" class="rounded img-thumbnail  mx-auto d-block">
-                {{ movie["id"] }}
-                {{ movie["title"] }}
-                {{ movie["overview"] }}
-                {{ movie["release_date"] }}
-                {{ movie["poster_path"] }}
-            </a>
-        {% endfor %}
-    {% endif %} #}
-
     <div class="container text-center">
         {% if movies %}
             <p class="m-4 fs-2 fw-bold">検索結果</p>
@@ -38,7 +24,7 @@ Movie-Record-App_movies
                             <img src="https://image.tmdb.org/t/p/w300{{movie['poster_path']}}" class="card-img-top ounded img-thumbnail  mx-auto d-block">
                             <div class="card-body">
                                 <h5 class="card-title">{{ movie["title"] }}</h5>
-                                <p class="card-text txt-limit"><p class="fw-bold">作品情報</p> : {{ movie["overview"] }}</p>
+                                <p class="card-text txt-limit"><p class="fw-bold">作品情報</p>{{ movie["overview"] }}</p>
                             </div>
                         </a>
                     </div>

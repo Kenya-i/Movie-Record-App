@@ -11,7 +11,6 @@ Movie-Record-App_user
     {# フラッシュメッセージとエラーメッセージの表示機能 #}
     {{ render_messages(container=True, dismissible=True, dismiss_animate=True) }}
 
-
     <div class="container">
         <div class="card m-4">
             <div class="card-header fs-2">
@@ -19,7 +18,7 @@ Movie-Record-App_user
             </div>
             <div class="card-body">
                 <h5 class="card-title">映画を通した英語学習でモチベーションを保つ</h5>
-                <p class="card-text">日々の記録をつけて映画による英語学習のモチベーションを保ちましょう。また、つけた記録とは別に洋画の字幕も確認できます。構文を解析して英語力をさらに高めましょう。</p>
+                <p class="card-text">日々の記録をつけて映画による英語学習のモチベーションを保ちましょう。また、つけた記録とは別に洋画の字幕も確認できます。</p>
                 <a href="{{url_for('record.record')}}" class="btn btn-primary">視聴記録を見る</a>
             </div>
         </div>
@@ -37,5 +36,4 @@ Movie-Record-App_user
             </div>
         </div>
     </div>
-    
 {% endblock %}

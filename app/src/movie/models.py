@@ -26,6 +26,7 @@ class Movie(db.Model):
         self.poster_path = poster_path
         self.user_id = user_id
     
+    #映画追加
     @classmethod
     def add_movie(cls, title, overview, comment, date, movie_number, poster_path, user_id):
         movie = cls(

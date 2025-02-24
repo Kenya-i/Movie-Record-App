@@ -1,27 +1,20 @@
 {% from 'bootstrap5/utils.html' import render_messages %}
-
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+
+{% block title %}
+Movie-Record-App_subtitle
+{% endblock %}
 
 {% block content %}
-
     <div class="container">
-        <div class="row justify-content-md-center gap-4">
-
-
+        <div class="row justify-content-md-center m-4">
             {% if movies %}
                 <div class="card col-md-auto" style="width: 18rem;">
-                    {# movie[0]はmovie-number #}
-                        {# movie[4]はposter_path #}
-                        <img src="https://image.tmdb.org/t/p/w300{{movies[0]['poster_path']}}" class="card-img-top ounded img-thumbnail  mx-auto d-block">
-                        <div class="card-body">
-                            {# movie[3]はtitle #}
-                            {# <h5 class="card-title">{{ key }}</h5>  #}
-                            {# movie[2]はdate(直近の視聴日) #}
-                            <p class="card-text">タイトル : {{ movies[0]['title'] }}</p>
-                            {# movie[5]はoverview #}
-                            <p class="card-text txt-limit">作品情報 : {{ movies[0]['overview'] }}</p>
-                        </div>
+                    <img src="https://image.tmdb.org/t/p/w300{{movies[0]['poster_path']}}" class="card-img-top ounded img-thumbnail  mx-auto d-block">
+                    <div class="card-body">
+                        <p class="card-text">タイトル : {{ movies[0]['title'] }}</p>
+                        <p class="card-text txt-limit">作品情報 : {{ movies[0]['overview'] }}</p>
+                    </div>
                 </div>
             {% else %}
                 <p class="m-4 fs-4 fw-bold text-center">映画情報を取得できませんでした</p>
@@ -47,12 +40,11 @@
                 {% endfor %}
                 {% endif %}
             </table>
-    
 
-    
             {% if lists %}
+                <h3 class="text-center m-3">字幕</h3>
                 {% for value in lists %}
-                    <div class="list-group m-4">
+                    <div class="list-group m-1">
                         <button type="button" class="list-group-item list-group-item-action" disabled>{{ value.index }}</button>
                         <button type="button" class="list-group-item list-group-item-action" disabled>{{ value.start_seconds }}</button>
                         <button type="button" class="list-group-item list-group-item-action"  aria-current="true">{{ value.content }}</button>
@@ -63,5 +55,4 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}
